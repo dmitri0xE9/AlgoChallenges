@@ -5,6 +5,7 @@
 // this array as input and returns the sum of all elements.
 
 #include <string>
+#include <unordered_map>
 #include <vector>
 
 int sum_of_array( const std::vector<int>& arr )
@@ -56,6 +57,60 @@ public:
 
 };
 
+// @task: Given an array of integers nums and an integer target, return indices of the two numbers such that they add up to target.
+
+class Solution1 {
+public:
+	std::vector<int> twoSum( std::vector<int>& nums, int target ) {
+		std::vector<int> temp_vec{};
+
+		
+
+		for( int i = 0; i < nums.size() - 1; i++ )
+		{
+			for( int j = i + 1; j < nums.size(); j++ )
+			{
+				if( nums[i ] + nums[j ] == target )
+				{
+					temp_vec.push_back( i );
+					temp_vec.push_back( j );
+				}
+			}
+		}
+
+		return temp_vec;
+	}
+};
+
+// @task: Roman numerals are represented by seven different symbols: I, V, X, L, C, D and M.
+
+class Solution13 {
+public:
+	int romanToInt( std::string s ) {
+		std::unordered_map<char, int> romanMap = {
+			{'I', 1},
+			{'V', 5},
+			{'X', 10},
+			{'L', 50},
+			{'C', 100},
+			{'D', 500},
+			{'M', 1000}
+		};
+
+		int result = 0;
+		int n = s.length( );
+		for( int i = 0; i < n; ++i ) {
+			if( i < n - 1 && romanMap[ s[ i ] ] < romanMap[ s[ i + 1 ] ] ) {
+				result -= romanMap[ s[ i ] ];
+			}
+			else {
+				result += romanMap[ s[ i ] ];
+			}
+		}
+		return result;
+	}
+};
+
 int main( )
 {
 	// task 1
@@ -79,4 +134,16 @@ int main( )
 		printf( "this val is palindrome\n" );
 
 
+	Solution1 sl_1{};
+	std::vector<int> two_sum = { 2,7,11,15 };
+	auto two_sum_arr = sl_1.twoSum( two_sum, 9 );
+
+	for( const int cur_val : two_sum_arr )
+	{
+		printf( "%d\n", cur_val );
+	}
+
+	Solution13 sl_13{};
+	auto roman = sl_13.romanToInt( "III" );
+	printf( "roman: %d\n", roman );
 }
